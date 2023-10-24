@@ -1,5 +1,5 @@
-import { TrendingGameListProps } from '@/types';
 import Image from 'next/image';
+import { TrendingGameListProps } from '@/types';
 
 const TrendingGameList = ({ gameList }: TrendingGameListProps) => {
     return (
@@ -13,7 +13,6 @@ const TrendingGameList = ({ gameList }: TrendingGameListProps) => {
                         index < 4 && (
                             <div
                                 className="pb-14 hover:scale-110 transition-all relative duration-300 cursor-pointer"
-                                // onClick={() => getMovieDetails(item.id)}
                                 key={item.id}
                             >
                                 <Image

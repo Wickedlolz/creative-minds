@@ -11,7 +11,6 @@ const PopularGameList = ({ gameList }: PopularGameListProps) => {
                 {gameList.map((item) => (
                     <div
                         className="pb-14 bg-slate-300 dark:bg-gray-700  p-4 rounded-lg h-full hover:scale-110 transition-all duration-300 cursor-pointer"
-                        // onClick={() => getMovieDetails(item.id)}
                         key={item.id}
                     >
                         <Image
