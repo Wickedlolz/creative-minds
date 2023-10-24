@@ -54,8 +54,7 @@ const Header = () => {
             <div>
                 {theme == 'dark' ? (
                     <HiSun
-                        className="text-[35px] cursor-pointer
-       bg-gray-200 text-black p-1 rounded-full "
+                        className="text-[35px] cursor-pointer bg-gray-200 text-black p-1 rounded-full"
                         onClick={() => setTheme('light')}
                     />
                 ) : (

@@ -1,5 +1,5 @@
-import { PopularGameListProps } from '@/types';
 import Image from 'next/image';
+import { PopularGameListProps } from '@/types';
 
 const PopularGameList = ({ gameList }: PopularGameListProps) => {
     return (
