@@ -1,31 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
 import { genres } from '@/utils/genres';
-import { SideNavProps } from '@/types';
 
-const AsideNav = ({ selectedGenreId }: SideNavProps) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    const selectGenre = (index: number, itemId: number) => {
-        setActiveIndex(index);
-
-        if (selectedGenreId) {
-            selectedGenreId(itemId);
-        }
-    };
+const AsideNav = () => {
+    const params = useParams();
+    const { id } = params;
+    const [activeIndex, setActiveIndex] = useState(id ? Number(id) : 0);
 
     return (
         <div>
             <h3 className="font-bold text-[30px] dark:text-white">Genres</h3>
             {genres.map((item, index) => (
-                <div
+                <Link
+                    href={`/genre/${item.id}`}
+                    scroll={false}
                     key={index}
                     className={`flex gap-2 items-center cursor-pointer group transition-all duration-300 rounded-lg p-3 ${
                         activeIndex == index && 'bg-slate-300 dark:bg-gray-700'
                     }`}
-                    onClick={() => selectGenre(index, item.id)}
+                    onClick={() => setActiveIndex(index)}
                 >
                     <Image
                         src={item.image_background}
@@ -38,12 +35,12 @@ const AsideNav = ({ selectedGenreId }: SideNavProps) => {
                     />
                     <h3
                         className={`text-[18px] group-hover:font-bold dark:text-white transition-all duration-300 ${
-                            activeIndex == index ? 'font-bold' : null
+                            activeIndex == index && 'font-bold'
                         }`}
                     >
                         {item.name}
                     </h3>
-                </div>
+                </Link>
             ))}
         </div>
     );
