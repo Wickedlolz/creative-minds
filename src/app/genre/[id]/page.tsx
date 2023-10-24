@@ -1,6 +1,5 @@
 import { GenrePageProps } from '@/types';
 
-import AsideNav from '@/components/AsideNav';
 import PopularGameList from '@/components/PopularGameList';
 import Slider from '@/components/Slider';
 import TrendingGameList from '@/components/TrendingGameList';
@@ -13,13 +12,15 @@ export default async function GenrePage({ params }: GenrePageProps) {
 
     return (
         <>
-            {gameList?.length && gamesListByGenre?.length > 0 && (
-                <div className="md:col-span-3 col-span-4 px-3">
-                    <Slider game={gamesListByGenre[0]} />
-                    <TrendingGameList gameList={gameList} />
-                    <PopularGameList gameList={gamesListByGenre} />
-                </div>
-            )}
+            {gameList?.length &&
+                gamesListByGenre &&
+                gamesListByGenre.length > 0 && (
+                    <div className="md:col-span-3 col-span-4 px-3">
+                        <Slider game={gamesListByGenre[0]} />
+                        <TrendingGameList gameList={gameList} />
+                        <PopularGameList gameList={gamesListByGenre} />
+                    </div>
+                )}
         </>
     );
 }
