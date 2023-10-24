@@ -1,3 +1,5 @@
+import { Game } from '@/types';
+
 const baseUrl = 'https://api.rawg.io/api';
 
 const endpoints = {
@@ -16,7 +18,7 @@ export const getPopularGames = async () => {
 
         const data = await response.json();
 
-        return data.results;
+        return data.results as Game[];
     } catch (error) {
         console.log(error);
     }
@@ -34,7 +36,7 @@ export const getGamesByGenreId = async (genreId: number) => {
 
         const data = await response.json();
 
-        return data.results;
+        return data.results as Game[];
     } catch (error) {
         console.log(error);
     }
