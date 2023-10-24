@@ -16,13 +16,13 @@ export default async function Home() {
                 // selectedGenreId={(genreId) => getGameList(genreId)}
                 />
             </div>
-            {gameList?.length && gamesListByGenre?.length > 0 ? (
+            {gameList?.length && gamesListByGenre?.length > 0 && (
                 <div className="md:col-span-3 col-span-4 px-3">
                     <Slider game={gamesListByGenre[0]} />
                     <TrendingGameList gameList={gameList} />
                     <PopularGameList gameList={gamesListByGenre} />
                 </div>
-            ) : null}
+            )}
         </div>
     );
 }
