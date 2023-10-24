@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
+import AsideNav from '@/components/AsideNav';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,7 +20,14 @@ export default function RootLayout({
         <html lang="en">
             <body className={inter.className}>
                 <Header />
-                <main>{children}</main>
+                <main>
+                    <section className="grid grid-cols-4 p-8">
+                        <div className="hidden md:flex">
+                            <AsideNav />
+                        </div>
+                        {children}
+                    </section>
+                </main>
             </body>
         </html>
     );
