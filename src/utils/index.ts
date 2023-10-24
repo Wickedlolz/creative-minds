@@ -3,7 +3,7 @@ const baseUrl = 'https://api.rawg.io/api';
 const endpoints = {
     popularGames: `/games?key=${process.env.API_KEY}`,
     gamesListByGenreId: (genreId: number) =>
-        `/games?key=${process.env.API_KEY}&genre=${genreId}`,
+        `/games?key=${process.env.API_KEY}&genres=${genreId}`,
 };
 
 export const getPopularGames = async () => {
