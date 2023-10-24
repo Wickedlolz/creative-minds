@@ -10,12 +10,7 @@ export default async function Home() {
     const gamesListByGenre = await getGamesByGenreId(0);
 
     return (
-        <section className="grid grid-cols-4 p-8">
-            <div className="hidden md:flex">
-                <AsideNav
-                // selectedGenreId={(genreId) => getGameList(genreId)}
-                />
-            </div>
+        <>
             {gameList?.length && gamesListByGenre?.length > 0 && (
                 <div className="md:col-span-3 col-span-4 px-3">
                     <Slider game={gamesListByGenre[0]} />
@@ -23,6 +18,6 @@ export default async function Home() {
                     <PopularGameList gameList={gamesListByGenre} />
                 </div>
             )}
-        </section>
+        </>
     );
 }
