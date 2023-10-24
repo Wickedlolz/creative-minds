@@ -16,7 +16,7 @@ const Slider = ({ game }: SliderProps) => {
                 src={game.background_image}
                 className="h-[170px] md:h-[320px] w-full object-cover rounded-xl"
                 width={170}
-                height={320}
+                height={170}
                 alt={game.slug}
             />
         </div>
