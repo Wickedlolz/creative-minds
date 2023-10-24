@@ -1,7 +1,3 @@
-export type SideNavProps = {
-    selectedGenreId?: (itemId: number) => void;
-};
-
 export type SliderProps = {
     game: any;
 };
@@ -12,4 +8,8 @@ export type TrendingGameListProps = {
 
 export type PopularGameListProps = {
     gameList: any[];
+};
+
+export type GenrePageProps = {
+    params: { id: string };
 };
