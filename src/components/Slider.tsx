@@ -1,5 +1,5 @@
-import { SliderProps } from '@/types';
 import Image from 'next/image';
+import { SliderProps } from '@/types';
 
 const Slider = ({ game }: SliderProps) => {
     return (
