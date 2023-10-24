@@ -1,7 +1,7 @@
 import { getGamesByGenreId, getPopularGames } from '@/utils';
 
 import PopularGameList from '@/components/PopularGameList';
-import SideNav from '@/components/SideNav';
+import AsideNav from '@/components/AsideNav';
 import Slider from '@/components/Slider';
 import TrendingGameList from '@/components/TrendingGameList';
 
@@ -12,7 +12,7 @@ export default async function Home() {
     return (
         <section className="grid grid-cols-4 p-8">
             <div className="hidden md:flex">
-                <SideNav
+                <AsideNav
                 // selectedGenreId={(genreId) => getGameList(genreId)}
                 />
             </div>

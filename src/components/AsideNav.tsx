@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { genres } from '@/utils/genres';
 import { SideNavProps } from '@/types';
 
-const SideNav = ({ selectedGenreId }: SideNavProps) => {
+const AsideNav = ({ selectedGenreId }: SideNavProps) => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const selectGenre = (index: number, itemId: number) => {
@@ -49,4 +49,4 @@ const SideNav = ({ selectedGenreId }: SideNavProps) => {
     );
 };
 
-export default SideNav;
+export default AsideNav;
