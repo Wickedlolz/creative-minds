@@ -1,13 +1,13 @@
 export type SliderProps = {
-    game: any;
+    game: Game;
 };
 
 export type TrendingGameListProps = {
-    gameList: any[];
+    gameList: Game[];
 };
 
 export type PopularGameListProps = {
-    gameList: any[];
+    gameList: Game[];
 };
 
 export type GenrePageProps = {
