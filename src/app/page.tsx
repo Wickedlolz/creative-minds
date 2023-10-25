@@ -6,7 +6,7 @@ import TrendingGameList from '@/components/TrendingGameList';
 
 export default async function Home() {
     const gameList = await getPopularGames();
-    const gamesListByGenre = await getGamesByGenreId(0);
+    const gamesListByGenre = await getGamesByGenreId(4);
 
     return (
         <>
