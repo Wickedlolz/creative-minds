@@ -4,15 +4,7 @@ import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 
 const manifestForPlugin: Partial<VitePWAOptions> = {
     registerType: 'prompt',
-    injectRegister: 'auto',
-    workbox: {
-        clientsClaim: true,
-        skipWaiting: true,
-    },
-    devOptions: {
-        enabled: true,
-    },
-    includeAssets: ['vite.svg', 'masked-icon.svg'],
+    includeAssets: ['favicon.ico', 'apple-touc-icon.png', 'masked-icon.svg'],
     manifest: {
         name: 'Creative Minds',
         short_name: 'Creative Minds',
