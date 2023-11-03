@@ -33,7 +33,9 @@ const Details = () => {
 
     useEffect(() => {
         const unsubscribe = onSnapshot(docRef, (snapshot) => {
-            setAllMessages(snapshot.data()!.comments);
+            if (snapshot.data()?.comments) {
+                setAllMessages(snapshot.data()?.comments);
+            }
         });
 
         return () => unsubscribe();
@@ -47,16 +49,22 @@ const Details = () => {
             toast.error("Don't leave an empty message 😅");
             return;
         }
-        const docRef = doc(db, 'posts', id!);
-        await updateDoc(docRef, {
-            comments: arrayUnion({
-                message,
-                avatar: user.photoURL,
-                userName: user.displayName,
-                time: Timestamp.now(),
-            }),
-        });
-        setMessage('');
+
+        try {
+            const docRef = doc(db, 'posts', id!);
+            await updateDoc(docRef, {
+                comments: arrayUnion({
+                    message,
+                    avatar: user.photoURL,
+                    userName: user.displayName,
+                    time: Timestamp.now(),
+                }),
+            });
+            setMessage('');
+        } catch (error) {
+            const { message } = error as { message: string };
+            toast.error(message);
+        }
     };
 
     return (
@@ -69,11 +77,11 @@ const Details = () => {
                         type="text"
                         value={message}
                         placeholder="Send a message 😀"
-                        className="bg-gray-800 w-full p-2 text-white text-sm"
+                        className="bg-gray-800 w-full p-2 text-white text-sm rounded-tl-md rounded-bl-md"
                     />
                     <button
                         onClick={submitMessage}
-                        className="bg-cyan-500 text-white py-2 px-4 text-sm"
+                        className="bg-cyan-500 text-white py-2 px-4 text-sm rounded-tr-md rounded-br-md hover:bg-cyan-400 duration-300"
                     >
                         Submit
                     </button>
