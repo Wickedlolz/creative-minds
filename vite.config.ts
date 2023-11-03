@@ -3,7 +3,12 @@ import react from '@vitejs/plugin-react';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 
 const manifestForPlugin: Partial<VitePWAOptions> = {
-    registerType: 'prompt',
+    registerType: 'autoUpdate',
+    injectRegister: 'auto',
+    workbox: {
+        clientsClaim: true,
+        skipWaiting: true,
+    },
     includeAssets: ['favicon.ico', 'apple-touc-icon.png', 'masked-icon.svg'],
     manifest: {
         name: 'Creative Minds',
