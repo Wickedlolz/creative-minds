@@ -1,30 +1,66 @@
-import { Routes, Route } from "react-router-dom";
-import { FirebaseProvider } from "./context/FirebaseContext";
+import { Suspense, lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { FirebaseProvider } from './context/FirebaseContext';
 
-import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import Post from "./pages/Post";
+import Layout from './components/Layout';
+import Home from './pages/Home';
+const Login = lazy(() => import('./pages/Login'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Post = lazy(() => import('./pages/Post'));
+const Details = lazy(() => import('./pages/Details'));
 
-import "react-toastify/dist/ReactToastify.css";
-import Details from "./pages/Details";
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  return (
-    <FirebaseProvider>
-      <Layout>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/post" element={<Post />} />
-          <Route path="/post/:id" element={<Post isInEditMode={true} />} />
-          <Route path="/:id" element={<Details />} />
-        </Routes>
-      </Layout>
-    </FirebaseProvider>
-  );
+    return (
+        <FirebaseProvider>
+            <Layout>
+                <Routes>
+                    <Route index element={<Home />} />
+                    <Route
+                        path="/auth/login"
+                        element={
+                            <Suspense fallback="Loading...">
+                                <Login />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <Suspense fallback="Loading...">
+                                <Dashboard />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/post"
+                        element={
+                            <Suspense fallback="Loading...">
+                                <Post />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/post/:id"
+                        element={
+                            <Suspense fallback="Loading...">
+                                <Post isInEditMode={true} />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/:id"
+                        element={
+                            <Suspense fallback="Loading...">
+                                <Details />
+                            </Suspense>
+                        }
+                    />
+                </Routes>
+            </Layout>
+        </FirebaseProvider>
+    );
 };
 
 export default App;
