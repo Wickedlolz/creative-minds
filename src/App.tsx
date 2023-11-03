@@ -10,6 +10,7 @@ const Post = lazy(() => import('./pages/Post'));
 const Details = lazy(() => import('./pages/Details'));
 
 import 'react-toastify/dist/ReactToastify.css';
+import NotFound from './pages/NotFound';
 
 const App = () => {
     return (
@@ -57,6 +58,7 @@ const App = () => {
                             </Suspense>
                         }
                     />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </Layout>
         </FirebaseProvider>
