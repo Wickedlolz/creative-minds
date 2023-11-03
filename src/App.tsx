@@ -50,7 +50,7 @@ const App = () => {
                         }
                     />
                     <Route
-                        path="/:id"
+                        path="/details/:id"
                         element={
                             <Suspense fallback="Loading...">
                                 <Details />
