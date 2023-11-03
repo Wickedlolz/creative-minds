@@ -8,9 +8,9 @@ const Login = lazy(() => import('./pages/Login'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Post = lazy(() => import('./pages/Post'));
 const Details = lazy(() => import('./pages/Details'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 import 'react-toastify/dist/ReactToastify.css';
-import NotFound from './pages/NotFound';
 
 const App = () => {
     return (
