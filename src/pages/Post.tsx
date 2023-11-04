@@ -58,6 +58,7 @@ const Post = ({ isInEditMode }: PostPageProps) => {
                     timestamp: serverTimestamp(),
                 };
                 await updateDoc(docRef, updatedPost);
+                toast.success('Post has been updated 🚀');
                 return navigate('/dashboard');
             }
 
