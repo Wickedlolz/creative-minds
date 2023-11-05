@@ -1,10 +1,6 @@
+import { ReactNode } from 'react';
 import { User, UserCredential } from 'firebase/auth';
 import { DocumentData } from 'firebase/firestore';
-import { ReactNode } from 'react';
-
-export type LayoutProps = {
-    children: ReactNode;
-};
 
 export type FirebaseProviderProps = {
     children: ReactNode;
