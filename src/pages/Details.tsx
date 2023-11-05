@@ -10,8 +10,8 @@ import {
     onSnapshot,
     updateDoc,
 } from 'firebase/firestore';
-import { db } from '../utils/firebase.config';
 import { toast } from 'react-toastify';
+import { db } from '../utils/firebase.config';
 import { MessageType } from '../types';
 
 import Message from '../components/Message';

@@ -10,9 +10,9 @@ import {
     serverTimestamp,
     updateDoc,
 } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 import { db } from '../utils/firebase.config';
 import { PostPageProps } from '../types';
-import { toast } from 'react-toastify';
 
 const Post = ({ isInEditMode }: PostPageProps) => {
     const { id } = useParams();
