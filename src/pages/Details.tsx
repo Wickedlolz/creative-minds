@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFirebaseContext } from '../context/FirebaseContext';
 import {
@@ -42,7 +42,9 @@ const Details = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const submitMessage = async () => {
+    const handleSubmitMessage = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
         if (!user) return navigate('/auth/login');
 
         if (!message) {
@@ -71,7 +73,7 @@ const Details = () => {
         <div>
             <Message post={post!}></Message>
             <div className="my-4">
-                <div className="flex">
+                <form className="flex" onSubmit={handleSubmitMessage}>
                     <input
                         onChange={(e) => setMessage(e.target.value)}
                         type="text"
@@ -80,12 +82,12 @@ const Details = () => {
                         className="bg-gray-800 w-full p-2 text-white text-sm rounded-tl-md rounded-bl-md"
                     />
                     <button
-                        onClick={submitMessage}
+                        type="submit"
                         className="bg-cyan-500 text-white py-2 px-4 text-sm rounded-tr-md rounded-br-md hover:bg-cyan-400 duration-300"
                     >
                         Submit
                     </button>
-                </div>
+                </form>
                 <div className="py-6">
                     <h2 className="font-bold">Comments</h2>
                     {allMessage?.map((message) => (
