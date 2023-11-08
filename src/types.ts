@@ -36,3 +36,7 @@ export type MessageType = {
     message: string;
     time: string;
 };
+
+export type MessageFormProps = {
+    id: string | undefined;
+};

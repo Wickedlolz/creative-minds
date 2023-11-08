@@ -1,27 +1,15 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useFirebaseContext } from '../context/FirebaseContext';
-import {
-    DocumentData,
-    Timestamp,
-    arrayUnion,
-    doc,
-    getDoc,
-    onSnapshot,
-    updateDoc,
-} from 'firebase/firestore';
-import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { DocumentData, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../utils/firebase.config';
 import { MessageType } from '../types';
 
 import Message from '../components/Message';
+import MessageForm from '../components/MessageForm';
 
 const Details = () => {
     const { id } = useParams();
-    const { user } = useFirebaseContext();
-    const navigate = useNavigate();
     const [post, setPost] = useState<DocumentData>();
-    const [message, setMessage] = useState<string>('');
     const [allMessage, setAllMessages] = useState<MessageType[]>([]);
     const docRef = doc(db, 'posts', id!);
 
@@ -42,52 +30,11 @@ const Details = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleSubmitMessage = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        if (!user) return navigate('/auth/login');
-
-        if (!message) {
-            toast.error("Don't leave an empty message 😅");
-            return;
-        }
-
-        try {
-            const docRef = doc(db, 'posts', id!);
-            await updateDoc(docRef, {
-                comments: arrayUnion({
-                    message,
-                    avatar: user.photoURL,
-                    userName: user.displayName,
-                    time: Timestamp.now(),
-                }),
-            });
-            setMessage('');
-        } catch (error) {
-            const { message } = error as { message: string };
-            toast.error(message);
-        }
-    };
-
     return (
         <div>
             <Message post={post!}></Message>
             <div className="my-4">
-                <form className="flex" onSubmit={handleSubmitMessage}>
-                    <input
-                        onChange={(e) => setMessage(e.target.value)}
-                        type="text"
-                        value={message}
-                        placeholder="Send a message 😀"
-                        className="bg-gray-800 w-full p-2 text-white text-sm rounded-tl-md rounded-bl-md"
-                    />
-                    <button
-                        type="submit"
-                        className="bg-cyan-500 text-white py-2 px-4 text-sm rounded-tr-md rounded-br-md hover:bg-cyan-400 duration-300"
-                    >
-                        Submit
-                    </button>
-                </form>
+                <MessageForm id={id} />
                 <div className="py-6">
                     <h2 className="font-bold">Comments</h2>
                     {allMessage?.map((message) => (
