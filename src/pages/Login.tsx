@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirebaseContext } from '../context/FirebaseContext';
+import { toast } from 'react-toastify';
 
 import { FcGoogle } from 'react-icons/fc';
 
@@ -15,8 +16,13 @@ const Login = () => {
     }, [user, navigate]);
 
     const handleGoogleLogin = async () => {
-        await signInWithGoogle();
-        navigate('/');
+        try {
+            await signInWithGoogle();
+            navigate('/');
+        } catch (error) {
+            const { message } = error as { message: string };
+            toast.error(message);
+        }
     };
 
     return (
