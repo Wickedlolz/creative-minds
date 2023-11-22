@@ -24,6 +24,7 @@ export type Post = {
     description: string;
     timestamp: string;
     comments: string[];
+    likes: string[];
 };
 
 export type PostPageProps = {

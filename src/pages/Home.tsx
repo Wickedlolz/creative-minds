@@ -1,12 +1,25 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { useFirebaseContext } from '../context/FirebaseContext';
+import {
+    arrayRemove,
+    arrayUnion,
+    collection,
+    doc,
+    onSnapshot,
+    orderBy,
+    query,
+    updateDoc,
+} from 'firebase/firestore';
 import { db } from '../utils/firebase.config';
 import { Post } from '../types';
 
 import Message from '../components/Message';
+import { FaRegHeart } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa6';
 
 const Home = () => {
+    const { user } = useFirebaseContext();
     const [allPosts, setAllPosts] = useState<Post[]>([]);
     const collectionRef = collection(db, 'posts');
     const q = query(collectionRef, orderBy('timestamp', 'desc'));
@@ -21,6 +34,7 @@ const Home = () => {
                     username: doc.data().username,
                     timestamp: doc.data().timestamp,
                     comments: doc.data().comments,
+                    likes: doc.data().likes || [],
                 }))
             );
         });
@@ -29,19 +43,46 @@ const Home = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const handleLikeUnlike = async (post: Post) => {
+        if (!post.likes.includes(user?.uid || '')) {
+            await updateDoc(doc(db, 'posts', post.id), {
+                likes: arrayUnion(user?.uid),
+            });
+        } else {
+            await updateDoc(doc(db, 'posts', post.id), {
+                likes: arrayRemove(user?.uid),
+            });
+        }
+    };
+
     return (
-        <section className="my-12 text-lg font-medium">
+        <section className='my-12 text-lg font-medium'>
             <h2>See what other people are saying</h2>
             {allPosts.map((post) => (
                 <Message key={post.id} post={post}>
-                    <Link to={`/details/${post.id}`}>
-                        <button>
-                            {post.comments?.length > 0
-                                ? post.comments?.length
-                                : 0}{' '}
-                            comments
-                        </button>
-                    </Link>
+                    <div className='flex items-center gap-4'>
+                        <Link to={`/details/${post.id}`}>
+                            <button>
+                                {post.comments?.length > 0
+                                    ? post.comments?.length
+                                    : 0}{' '}
+                                comments
+                            </button>
+                        </Link>
+                        {user && (
+                            <button
+                                className='flex items-center gap-1'
+                                onClick={() => handleLikeUnlike(post)}
+                            >
+                                {!post.likes.includes(user!.uid) ? (
+                                    <FaRegHeart className='text-xl inline-block' />
+                                ) : (
+                                    <FaHeart className='text-xl inline-block' />
+                                )}{' '}
+                                {post.likes.length}
+                            </button>
+                        )}
+                    </div>
                 </Message>
             ))}
         </section>

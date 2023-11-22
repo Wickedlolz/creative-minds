@@ -70,6 +70,7 @@ const Post = ({ isInEditMode }: PostPageProps) => {
                 avatar: user?.photoURL,
                 username: user?.displayName,
                 comments: [],
+                likes: [],
             });
 
             setDescription('');
@@ -83,18 +84,18 @@ const Post = ({ isInEditMode }: PostPageProps) => {
     };
 
     return (
-        <div className="my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto">
+        <div className='my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto'>
             <form onSubmit={handleSubmit}>
-                <h1 className="text-2xl font-bold">
+                <h1 className='text-2xl font-bold'>
                     {isInEditMode ? 'Edit your post' : 'Create a new post'}
                 </h1>
-                <div className="py-2">
-                    <h3 className="text-lg font-medium py-2">Description</h3>
+                <div className='py-2'>
+                    <h3 className='text-lg font-medium py-2'>Description</h3>
                     <textarea
-                        name="description"
+                        name='description'
                         value={description}
                         onChange={(event) => setDescription(event.target.value)}
-                        className="bg-gray-800 h-48 w-full text-white rounded-lg p-2 text-sm"
+                        className='bg-gray-800 h-48 w-full text-white rounded-lg p-2 text-sm'
                     ></textarea>
                     <p
                         className={`text-cyan-600 font-medium text-sm ${
@@ -105,8 +106,8 @@ const Post = ({ isInEditMode }: PostPageProps) => {
                     </p>
                 </div>
                 <button
-                    type="submit"
-                    className="w-full bg-cyan-600 text-white font-medium p-2 my-2 rounded-lg text-sm hover:bg-cyan-500 duration-300"
+                    type='submit'
+                    className='w-full bg-cyan-600 text-white font-medium p-2 my-2 rounded-lg text-sm hover:bg-cyan-500 duration-300'
                 >
                     Submit
                 </button>
