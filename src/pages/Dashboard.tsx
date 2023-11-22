@@ -1,11 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFirebaseContext } from '../context/FirebaseContext';
-import { Post } from '../types';
-
-import Message from '../components/Message';
-import { BsTrash2Fill } from 'react-icons/bs';
-import { AiFillEdit } from 'react-icons/ai';
-import { useEffect, useState } from 'react';
 import {
     collection,
     deleteDoc,
@@ -16,6 +11,11 @@ import {
 } from 'firebase/firestore';
 import { db } from '../utils/firebase.config';
 import { toast } from 'react-toastify';
+import { Post } from '../types';
+
+import Message from '../components/Message';
+import { BsTrash2Fill } from 'react-icons/bs';
+import { AiFillEdit } from 'react-icons/ai';
 
 const Dashboard = () => {
     const navigate = useNavigate();
