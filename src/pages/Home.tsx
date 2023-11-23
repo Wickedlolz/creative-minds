@@ -17,10 +17,12 @@ import { Post } from '../types';
 import Message from '../components/Message';
 import { FaRegHeart } from 'react-icons/fa';
 import { FaHeart } from 'react-icons/fa6';
+import { toast } from 'react-toastify';
 
 const Home = () => {
     const { user } = useFirebaseContext();
     const [allPosts, setAllPosts] = useState<Post[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const collectionRef = collection(db, 'posts');
     const q = query(collectionRef, orderBy('timestamp', 'desc'));
 
@@ -44,14 +46,27 @@ const Home = () => {
     }, []);
 
     const handleLikeUnlike = async (post: Post) => {
-        if (!post.likes.includes(user?.uid || '')) {
-            await updateDoc(doc(db, 'posts', post.id), {
-                likes: arrayUnion(user?.uid),
-            });
-        } else {
-            await updateDoc(doc(db, 'posts', post.id), {
-                likes: arrayRemove(user?.uid),
-            });
+        if (isLoading) {
+            return;
+        }
+
+        setIsLoading(true);
+
+        try {
+            if (!post.likes.includes(user?.uid || '')) {
+                await updateDoc(doc(db, 'posts', post.id), {
+                    likes: arrayUnion(user?.uid),
+                });
+            } else {
+                await updateDoc(doc(db, 'posts', post.id), {
+                    likes: arrayRemove(user?.uid),
+                });
+            }
+        } catch (error) {
+            const { message } = error as { message: string };
+            toast.error(message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -71,8 +86,11 @@ const Home = () => {
                         </Link>
                         {user && (
                             <button
-                                className='flex items-center gap-1'
+                                className={`flex items-center gap-1 ${
+                                    isLoading && 'cursor-not-allowed'
+                                }`}
                                 onClick={() => handleLikeUnlike(post)}
+                                disabled={isLoading}
                             >
                                 {!post.likes.includes(user!.uid) ? (
                                     <FaRegHeart className='text-xl inline-block' />

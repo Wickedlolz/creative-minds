@@ -20,6 +20,7 @@ const Post = ({ isInEditMode }: PostPageProps) => {
     const { user } = useFirebaseContext();
     const [post, setPost] = useState<DocumentData | null>(null);
     const [description, setDescription] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         if (isInEditMode && id) {
@@ -40,6 +41,12 @@ const Post = ({ isInEditMode }: PostPageProps) => {
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        if (isLoading) {
+            return;
+        }
+
+        setIsLoading(true);
 
         try {
             if (!description.length) {
@@ -80,6 +87,8 @@ const Post = ({ isInEditMode }: PostPageProps) => {
         } catch (error) {
             const { message } = error as { message: string };
             toast.error(message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -107,7 +116,12 @@ const Post = ({ isInEditMode }: PostPageProps) => {
                 </div>
                 <button
                     type='submit'
-                    className='w-full bg-cyan-600 text-white font-medium p-2 my-2 rounded-lg text-sm hover:bg-cyan-500 duration-300'
+                    className={`w-full ${
+                        isLoading
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'bg-cyan-600 hover:bg-cyan-500'
+                    } text-white font-medium p-2 my-2 rounded-lg text-sm duration-300`}
+                    disabled={isLoading}
                 >
                     Submit
                 </button>

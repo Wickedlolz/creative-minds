@@ -33,25 +33,27 @@ const Details = () => {
     return (
         <div>
             <Message post={post!}></Message>
-            <div className="my-4">
+            <div className='my-4'>
                 <MessageForm id={id} />
-                <div className="py-6">
-                    <h2 className="font-bold">Comments</h2>
+                <div className='py-6'>
+                    <h2 className='font-bold'>Comments</h2>
                     {allMessage?.map((message) => (
                         <div
-                            className="bg-white p-4 my-4 border-2"
+                            className='bg-white p-4 my-4 border-2'
                             key={message.time}
                         >
-                            <div className="flex items-center gap-2 mb-4">
+                            <div className='flex items-center gap-2 mb-4'>
                                 <img
                                     width={40}
                                     height={40}
-                                    className="w-10 h-10 rounded-full"
+                                    className='w-10 h-10 rounded-full'
                                     src={message.avatar}
                                     alt={message.message}
-                                    loading="lazy"
+                                    loading='lazy'
                                 />
-                                <h2>{message.userName}</h2>
+                                <h2 className='font-bold'>
+                                    {message.userName}
+                                </h2>
                             </div>
                             <h2>{message.message}</h2>
                         </div>
