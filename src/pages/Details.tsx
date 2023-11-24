@@ -31,7 +31,7 @@ const Details = () => {
     }, []);
 
     return (
-        <div>
+        <>
             <Message post={post!}></Message>
             <div className='my-4'>
                 <MessageForm id={id} />
@@ -60,7 +60,7 @@ const Details = () => {
                     ))}
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
