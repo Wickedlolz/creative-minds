@@ -2,6 +2,10 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Layout from '../components/Layout';
 import Home from '../pages/Home';
+import Post from '../pages/Post';
+import Login from '../pages/Login';
+import Details from '../pages/Details';
+import Dashboard from '../pages/Dashboard';
 import NotFound from '../pages/NotFound';
 
 export const router = createBrowserRouter([
@@ -16,46 +20,28 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'auth/login',
-                async lazy() {
-                    const { default: Login } = await import('../pages/Login');
-
-                    return { Component: Login };
-                },
+                element: <Login />,
+                errorElement: <NotFound />,
             },
             {
                 path: 'dashboard',
-                async lazy() {
-                    const { default: Dashboard } = await import(
-                        '../pages/Dashboard'
-                    );
-                    return { Component: Dashboard };
-                },
+                element: <Dashboard />,
+                errorElement: <NotFound />,
             },
             {
                 path: 'post',
-                async lazy() {
-                    const { default: Post } = await import('../pages/Post');
-
-                    return { Component: Post };
-                },
+                element: <Post />,
+                errorElement: <Post />,
             },
             {
                 path: 'post/:id',
-                async lazy() {
-                    const { default: Post } = await import('../pages/Post');
-
-                    return { element: <Post isInEditMode /> };
-                },
+                element: <Post isInEditMode />,
+                errorElement: <NotFound />,
             },
             {
                 path: 'details/:id',
-                async lazy() {
-                    const { default: Details } = await import(
-                        '../pages/Details'
-                    );
-
-                    return { Component: Details };
-                },
+                element: <Details />,
+                errorElement: <NotFound />,
             },
             {
                 path: '*',
