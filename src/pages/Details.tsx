@@ -41,7 +41,7 @@ const Details = () => {
                     {allMessage.length > 0 ?
                         allMessage?.map((message) => (
                             <MessageItem key={message.time} message={message} />
-                        )):
+                        )) :
                         <p>Write the first comment.</p>
                     }
                 </div>
