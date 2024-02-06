@@ -6,6 +6,7 @@ import { MessageType } from '../types';
 
 import Message from '../components/Message';
 import MessageForm from '../components/MessageForm';
+import MessageItem from "../components/MessageItem.tsx";
 
 const Details = () => {
     const { id } = useParams();
@@ -37,27 +38,12 @@ const Details = () => {
                 <MessageForm id={id} />
                 <div className='py-6'>
                     <h2 className='font-bold'>Comments</h2>
-                    {allMessage?.map((message) => (
-                        <div
-                            className='bg-white p-4 my-4 border-2'
-                            key={message.time}
-                        >
-                            <div className='flex items-center gap-2 mb-4'>
-                                <img
-                                    width={40}
-                                    height={40}
-                                    className='w-10 h-10 rounded-full'
-                                    src={message.avatar}
-                                    alt={message.message}
-                                    loading='lazy'
-                                />
-                                <h2 className='font-bold'>
-                                    {message.userName}
-                                </h2>
-                            </div>
-                            <h2>{message.message}</h2>
-                        </div>
-                    ))}
+                    {allMessage.length > 0 ?
+                        allMessage?.map((message) => (
+                            <MessageItem key={message.time} message={message} />
+                        )):
+                        <p>Write the first comment.</p>
+                    }
                 </div>
             </div>
         </>

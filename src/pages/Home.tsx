@@ -12,12 +12,12 @@ import {
     updateDoc,
 } from 'firebase/firestore';
 import { db } from '../utils/firebase.config';
+import { toast } from 'react-toastify';
 import { Post } from '../types';
 
 import Message from '../components/Message';
 import { FaRegHeart } from 'react-icons/fa';
 import { FaHeart } from 'react-icons/fa6';
-import { toast } from 'react-toastify';
 
 const Home = () => {
     const { user } = useFirebaseContext();
